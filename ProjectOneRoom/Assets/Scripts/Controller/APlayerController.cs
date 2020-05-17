@@ -15,7 +15,7 @@ public class APlayerController : MonoBehaviour
     [SerializeField]
     private Vector2 CameraMaxOffset;
 
-    void Update()
+    private void Update()
     {
         MoveCrosshair();
         MoveCamera();

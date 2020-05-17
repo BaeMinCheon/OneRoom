@@ -7,6 +7,8 @@ public class AObjectManager : MonoBehaviour
 {
     [SerializeField]
     private ABlocker[] Blockers;
+    [SerializeField]
+    private GameObject[] Crosshairs;
 
     public void UpdateBlockers(Vector2 Directions)
     {
@@ -18,6 +20,8 @@ public class AObjectManager : MonoBehaviour
                 break;
             case +1.0f:
                 DirectionX = EDirection.Right;
+                break;
+            case 0.0f:
                 break;
             default:
                 print("UpdateBlockers(): invalid Directions.x");
@@ -32,6 +36,8 @@ public class AObjectManager : MonoBehaviour
             case +1.0f:
                 DirectionY = EDirection.Up;
                 break;
+            case 0.0f:
+                break;
             default:
                 print("UpdateBlockers(): invalid Directions.y");
                 break;
@@ -40,6 +46,14 @@ public class AObjectManager : MonoBehaviour
         foreach (ABlocker Blocker in Blockers)
         {
             Blocker.TurnOnWhenEqualTo(DirectionX, DirectionY);
+        }
+    }
+
+    public void UpdateCrosshairs()
+    {
+        foreach (GameObject Crosshair in Crosshairs)
+        {
+            Crosshair.SetActive(!Crosshair.activeSelf);
         }
     }
 }

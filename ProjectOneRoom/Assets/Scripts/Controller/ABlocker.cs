@@ -30,9 +30,4 @@ public class ABlocker : MonoBehaviour
             BlockImage.enabled = false;
         }
     }
-
-    void Start()
-    {
-        BlockImage.enabled = false;
-    }
 }
