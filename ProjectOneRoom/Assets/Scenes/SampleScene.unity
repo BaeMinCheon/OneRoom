@@ -1782,6 +1782,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CrosshairTransform: {fileID: 1567657342}
+  CameraTransform: {fileID: 534669905}
+  CameraRotationRate: 1
+  ViewAngleLimit: {x: 120, y: 90}
 --- !u!1001 &863029309
 PrefabInstance:
   m_ObjectHideFlags: 0
