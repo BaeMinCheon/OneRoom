@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class AInteractor : MonoBehaviour
 {
@@ -26,10 +27,14 @@ public class AInteractor : MonoBehaviour
         Vector3 MousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f);
         if (Physics.Raycast(Camera.main.ScreenPointToRay(MousePosition), out LastHitResult))
         {
-            if (LastHitResult.transform.CompareTag("Interactable"))
+            // do not allow raycast when there is ui object
+            if (EventSystem.current.IsPointerOverGameObject())
             {
-                BeReadyToInteract();
-                IsFailedToFindInteractable = false;
+                if (LastHitResult.transform.CompareTag("Interactable"))
+                {
+                    BeReadyToInteract();
+                    IsFailedToFindInteractable = false;
+                }
             }
         }
         if (IsFailedToFindInteractable)
