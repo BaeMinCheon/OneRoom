@@ -2,13 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using RotaryHeart.Lib.SerializableDictionary;
+
+[System.Serializable]
+public class StringGameobjectDictionary : SerializableDictionaryBase<string, GameObject>
+{
+}
 
 public class AObjectManager : MonoBehaviour
 {
     [SerializeField]
     private ABlocker[] Blockers;
     [SerializeField]
-    private GameObject[] Crosshairs;
+    private StringGameobjectDictionary CrosshairDictionary;
+    [SerializeField]
+    private StringGameobjectDictionary ParticleDictionary;
+
+    private AInteractor LastInteractor;
 
     public void UpdateBlockers(Vector2 Directions)
     {
@@ -49,11 +59,35 @@ public class AObjectManager : MonoBehaviour
         }
     }
 
-    public void UpdateCrosshairs()
+    public void UpdateCrosshairs(bool IsInteractable)
     {
-        foreach (GameObject Crosshair in Crosshairs)
+        if(IsInteractable)
         {
-            Crosshair.SetActive(!Crosshair.activeSelf);
+            CrosshairDictionary["Normal"].SetActive(false);
+            CrosshairDictionary["Interact"].SetActive(true);
         }
+        else
+        {
+            CrosshairDictionary["Normal"].SetActive(true);
+            CrosshairDictionary["Interact"].SetActive(false);
+        }
+    }
+
+    public void PlayParticle(string Name)
+    {
+        GameObject Particle = ParticleDictionary[Name];
+        Particle.SetActive(true);
+        ParticleSystem ParticleComponent = Particle.GetComponent<ParticleSystem>();
+        ParticleComponent.Play();
+    }
+
+    public void SetLastInteractor(AInteractor NewInteractor)
+    {
+        LastInteractor = NewInteractor;
+    }
+
+    public Vector3 RequestLastTargetPositionOfInteraction()
+    {
+        return LastInteractor.GetLastTargetPositionOfInteraction();
     }
 }

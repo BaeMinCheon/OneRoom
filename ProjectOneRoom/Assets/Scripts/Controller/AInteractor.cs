@@ -7,7 +7,13 @@ public class AInteractor : MonoBehaviour
     [SerializeField]
     private AObjectManager ObjectManager;
 
-    bool IsInInteraction;
+    bool IsReadyToInteract;
+    RaycastHit LastHitResult;
+
+    public Vector3 GetLastTargetPositionOfInteraction()
+    {
+        return LastHitResult.collider.transform.position;
+    }
 
     private void Update()
     {
@@ -16,35 +22,50 @@ public class AInteractor : MonoBehaviour
 
     private void TryToInteract()
     {
+        bool IsFailedToFindInteractable = true;
         Vector3 MousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f);
-        RaycastHit HitInformation;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(MousePosition), out HitInformation))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(MousePosition), out LastHitResult))
         {
-            if(HitInformation.transform.CompareTag("Interactable"))
+            if (LastHitResult.transform.CompareTag("Interactable"))
             {
                 BeReadyToInteract();
-                return;
+                IsFailedToFindInteractable = false;
             }
         }
-
-        LoseInteractable();
+        if (IsFailedToFindInteractable)
+        {
+            LoseInteractable();
+        }
+        else
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                Interact();
+            }
+        }
     }
 
     private void BeReadyToInteract()
     {
-        if(IsInInteraction == false)
+        if(IsReadyToInteract == false)
         {
-            IsInInteraction = true;
-            ObjectManager.UpdateCrosshairs();
+            IsReadyToInteract = true;
+            ObjectManager.UpdateCrosshairs(true);
         }
     }
 
     private void LoseInteractable()
     {
-        if (IsInInteraction)
+        if (IsReadyToInteract)
         {
-            IsInInteraction = false;
-            ObjectManager.UpdateCrosshairs();
+            IsReadyToInteract = false;
+            ObjectManager.UpdateCrosshairs(false);
         }
+    }
+
+    private void Interact()
+    {
+        ObjectManager.SetLastInteractor(this);
+        ObjectManager.PlayParticle("Question");
     }
 }

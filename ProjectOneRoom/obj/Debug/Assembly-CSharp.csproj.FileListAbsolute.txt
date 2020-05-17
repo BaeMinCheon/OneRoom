@@ -239,3 +239,6 @@ C:\Users\qmffk\source\repos\OneRoom\ProjectOneRoom\obj\Debug\Assembly-CSharp.csp
 C:\Users\qmffk\source\repos\OneRoom\ProjectOneRoom\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\qmffk\source\repos\OneRoom\ProjectOneRoom\obj\Debug\Assembly-CSharp.dll
 C:\Users\qmffk\source\repos\OneRoom\ProjectOneRoom\obj\Debug\Assembly-CSharp.pdb
+C:\Users\qmffk\source\repos\OneRoom\ProjectOneRoom\Temp\bin\Debug\Boo.Lang.dll
+C:\Users\qmffk\source\repos\OneRoom\ProjectOneRoom\Temp\bin\Debug\UnityEditor.UI.dll
+C:\Users\qmffk\source\repos\OneRoom\ProjectOneRoom\Temp\bin\Debug\RotaryHeart.pdb
