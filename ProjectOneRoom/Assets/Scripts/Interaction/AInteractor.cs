@@ -6,12 +6,18 @@ using UnityEngine.EventSystems;
 public class AInteractor : MonoBehaviour
 {
     [SerializeField]
-    private AObjectManager ObjectManager;
+    private AObjectManager ObjectManager = null;
 
-    bool IsReadyToInteract;
-    RaycastHit LastHitResult;
+    private bool IsReadyToInteract = false;
+    private RaycastHit LastHitResult = new RaycastHit();
+    private AInteractable LastTarget = null;
 
-    public Vector3 GetLastTargetPositionOfInteraction()
+    public AInteractable GetLastTargetOfRaycast()
+    {
+        return LastTarget;
+    }
+
+    public Vector3 GetLastTargetPositionOfRaycast()
     {
         return LastHitResult.collider.transform.position;
     }
@@ -30,8 +36,10 @@ public class AInteractor : MonoBehaviour
             // do not allow raycast when there is ui object
             if (EventSystem.current.IsPointerOverGameObject())
             {
-                if (LastHitResult.transform.CompareTag("Interactable"))
+                AInteractable Interactable = LastHitResult.transform.GetComponent<AInteractable>();
+                if (Interactable != null)
                 {
+                    LastTarget = Interactable;
                     BeReadyToInteract();
                     IsFailedToFindInteractable = false;
                 }
@@ -55,7 +63,9 @@ public class AInteractor : MonoBehaviour
         if(IsReadyToInteract == false)
         {
             IsReadyToInteract = true;
+            ObjectManager.SetLastInteractorWithRaycast(this);
             ObjectManager.UpdateCrosshairs(true);
+            ObjectManager.UpdateToolTip(true);
         }
     }
 
@@ -65,12 +75,12 @@ public class AInteractor : MonoBehaviour
         {
             IsReadyToInteract = false;
             ObjectManager.UpdateCrosshairs(false);
+            ObjectManager.UpdateToolTip(false);
         }
     }
 
     private void Interact()
     {
-        ObjectManager.SetLastInteractor(this);
         ObjectManager.PlayParticle("Question");
     }
 }

@@ -12,13 +12,15 @@ public class StringGameobjectDictionary : SerializableDictionaryBase<string, Gam
 public class AObjectManager : MonoBehaviour
 {
     [SerializeField]
-    private ABlocker[] Blockers;
+    private ABlocker[] Blockers = null;
     [SerializeField]
-    private StringGameobjectDictionary CrosshairDictionary;
+    private StringGameobjectDictionary CrosshairDictionary = null;
     [SerializeField]
-    private StringGameobjectDictionary ParticleDictionary;
+    private StringGameobjectDictionary ParticleDictionary = null;
+    [SerializeField]
+    private StringGameobjectDictionary ToolTipDictionary = null;
 
-    private AInteractor LastInteractor;
+    private AInteractor LastInteractorWithRaycast;
 
     public void UpdateBlockers(Vector2 Directions)
     {
@@ -73,6 +75,23 @@ public class AObjectManager : MonoBehaviour
         }
     }
 
+    public void UpdateToolTip(bool IsInteractable)
+    {
+        Animator ToolTipAnimator = ToolTipDictionary["ToolTipAnimator"].GetComponent<Animator>();
+        Text ToolTipText = ToolTipDictionary["ToolTipText"].GetComponent<Text>();
+        if (IsInteractable)
+        {
+            Vector3 TargetPosition = LastInteractorWithRaycast.GetLastTargetPositionOfRaycast();
+            ToolTipAnimator.Play("FadeIn");
+            ToolTipAnimator.transform.position = Camera.main.WorldToScreenPoint(TargetPosition);
+            ToolTipText.text = RequestLastTargetNameOfRaycast();
+        }
+        else
+        {
+            ToolTipAnimator.Play("FadeOut");
+        }
+    }
+
     public void PlayParticle(string Name)
     {
         GameObject Particle = ParticleDictionary[Name];
@@ -81,13 +100,18 @@ public class AObjectManager : MonoBehaviour
         ParticleComponent.Play();
     }
 
-    public void SetLastInteractor(AInteractor NewInteractor)
+    public void SetLastInteractorWithRaycast(AInteractor NewInteractor)
     {
-        LastInteractor = NewInteractor;
+        LastInteractorWithRaycast = NewInteractor;
     }
 
-    public Vector3 RequestLastTargetPositionOfInteraction()
+    public Vector3 RequestLastTargetPositionOfRaycast()
     {
-        return LastInteractor.GetLastTargetPositionOfInteraction();
+        return LastInteractorWithRaycast.GetLastTargetPositionOfRaycast();
+    }
+
+    public string RequestLastTargetNameOfRaycast()
+    {
+        return LastInteractorWithRaycast.GetLastTargetOfRaycast().GetName();
     }
 }

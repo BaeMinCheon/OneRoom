@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class ADialogTriggerWithParticle : MonoBehaviour
 {
     [SerializeField]
-    private UnityEvent Callback;
+    private UnityEvent Callback = null;
 
     private void OnParticleSystemStopped()
     {

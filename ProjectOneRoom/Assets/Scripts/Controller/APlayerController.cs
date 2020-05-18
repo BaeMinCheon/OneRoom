@@ -5,15 +5,15 @@ using UnityEngine;
 public class APlayerController : MonoBehaviour
 {
     [SerializeField]
-    private AObjectManager ObjectManager;
+    private AObjectManager ObjectManager = null;
     [SerializeField]
-    private Transform CrosshairTransform;
+    private Transform CrosshairTransform = null;
     [SerializeField]
-    private Transform CameraTransform;
+    private Transform CameraTransform = null;
     [SerializeField]
-    private float CameraMoveSpeed;
+    private float CameraMoveSpeed = float.NaN;
     [SerializeField]
-    private Vector2 CameraMaxOffset;
+    private Vector2 CameraMaxOffset = Vector2.zero;
 
     private void Update()
     {

@@ -15,9 +15,9 @@ public enum EDirection
 public class ABlocker : MonoBehaviour
 {
     [SerializeField]
-    private Image BlockImage;
+    private Image BlockImage = null;
     [SerializeField]
-    private EDirection Direction;
+    private EDirection Direction = EDirection.None;
 
     public void TurnOnWhenEqualTo(EDirection DirectionX, EDirection DirectionY)
     {

@@ -5,12 +5,12 @@ using UnityEngine;
 public class AThrowableParticle : MonoBehaviour
 {
     [SerializeField]
-    private AObjectManager ObjectManager;
+    private AObjectManager ObjectManager = null;
     [SerializeField]
-    private ParticleSystem HitEffectParticle;
+    private ParticleSystem HitEffectParticle = null;
     [SerializeField]
-    private float MoveSpeed;
-    private Vector3 TargetPosition;
+    private float MoveSpeed = float.NaN;
+    private Vector3 TargetPosition = Vector3.zero;
 
     public void SetTargetPosition(Vector3 NewTargetPosition)
     {
@@ -19,7 +19,7 @@ public class AThrowableParticle : MonoBehaviour
 
     private void OnEnable()
     {
-        TargetPosition = ObjectManager.RequestLastTargetPositionOfInteraction();
+        TargetPosition = ObjectManager.RequestLastTargetPositionOfRaycast();
         gameObject.transform.position = Camera.main.transform.position;
     }
 

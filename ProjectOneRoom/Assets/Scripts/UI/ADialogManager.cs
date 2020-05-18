@@ -7,13 +7,13 @@ using UnityEngine.EventSystems;
 public class ADialogManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject UICanvas;
+    private GameObject UICanvas = null;
     [SerializeField]
-    private GameObject DialogObject;
+    private GameObject DialogObject = null;
     [SerializeField]
-    private Text NameText;
+    private Text NameText = null;
     [SerializeField]
-    private Text DescriptonText;
+    private Text DescriptonText = null;
 
     public void ShowDialog()
     {

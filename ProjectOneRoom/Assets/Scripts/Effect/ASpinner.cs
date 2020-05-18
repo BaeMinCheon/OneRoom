@@ -5,9 +5,9 @@ using UnityEngine;
 public class ASpinner : MonoBehaviour
 {
     [SerializeField]
-    private Vector3 RotateVector;
+    private Vector3 RotateVector = Vector3.zero;
     [SerializeField]
-    private float SpinSpeed;
+    private float SpinSpeed = float.NaN;
 
     private void Update()
     {
