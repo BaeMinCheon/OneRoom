@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 public class ADialogManager : MonoBehaviour
 {
@@ -11,40 +12,114 @@ public class ADialogManager : MonoBehaviour
     [SerializeField]
     private GameObject DialogObject = null;
     [SerializeField]
+    private AInteractor Interactor = null;
+    [SerializeField]
     private Text NameText = null;
     [SerializeField]
     private Text DescriptonText = null;
+    [SerializeField]
+    private int TextDelay = 0;
+    private bool IsDialogShowing = false;
+    private ADialogEvent DialogEvent = null;
+    private int DialogIndex = 0;
+    private int DescriptionIndex = 0;
 
     public void ShowDialog()
     {
-        HideAllExceptForDialog();
-        NameText.text = RequestNameText();
-        DescriptonText.text = RequestDescriptionText();
-    }
-
-    public void ShowDialog(string Name, string Description)
-    {
-        HideAllExceptForDialog();
-        NameText.text = Name;
-        DescriptonText.text = Description;
+        IsDialogShowing = true;
+        HideAllWidgetExceptForDialog();
+        SetupDialog();
     }
 
     public void HideDialog()
     {
-        ShowAllExceptForDialog();
+        IsDialogShowing = false;
+        ShowAllWidgetExceptForDialog();
     }
 
-    private string RequestNameText()
+    private void Update()
     {
-        return "";
+        if(IsDialogShowing)
+        {
+            if(Input.GetMouseButtonUp(0))
+            {
+                UpdateDialog();
+            }
+        }
     }
 
-    private string RequestDescriptionText()
+    private void SetupDialog()
     {
-        return "";
+        AInteractable Interactable = Interactor.GetLastTargetOfRaycast();
+        DialogEvent = Interactable.GetComponent<AInteractionEvent>().GetDialogEvent();
+        DialogIndex = DialogEvent.IndexFrom;
+        DescriptionIndex = 0;
+        UpdateText();
     }
 
-    private void HideAllExceptForDialog()
+    private void UpdateDialog()
+    {
+        DescriptionIndex += 1;
+        if(DescriptionIndex >= DialogEvent.Dialogs[DialogIndex].Contexts.Length)
+        {
+            DialogIndex += 1;
+            DescriptionIndex = 0;
+        }
+
+        if (IsDialogEnd())
+        {
+            HideDialog();
+        }
+        else
+        {
+            UpdateText();
+        }
+    }
+
+    private void UpdateText()
+    {
+        NameText.text = GetDialogName();
+        UpdateDescriptionWithTextDelay();
+    }
+
+    private string GetDialogName()
+    {
+        return DialogEvent.Dialogs[DialogIndex].Name;
+    }
+
+    private string GetDialogDescription()
+    {
+        return DialogEvent.Dialogs[DialogIndex].Contexts[DescriptionIndex];
+    }
+
+    private async void UpdateDescriptionWithTextDelay()
+    {
+        int IndexValidator01 = DialogIndex;
+        int IndexValidator02 = DescriptionIndex;
+        DescriptonText.text = "";
+        string NewDescription = GetDialogDescription();
+        for(int Index = 0; Index < NewDescription.Length; ++Index)
+        {
+            bool Validation01 = IndexValidator01 == DialogIndex;
+            bool Validation02 = IndexValidator02 == DescriptionIndex;
+            if (Validation01 && Validation02)
+            {
+                DescriptonText.text += NewDescription[Index];
+                await Task.Delay(TextDelay);
+            }
+            else
+            {
+                return;
+            }
+        }
+    }
+
+    private bool IsDialogEnd()
+    {
+        return DialogIndex >= DialogEvent.IndexTo;
+    }
+
+    private void HideAllWidgetExceptForDialog()
     {
         int NumberOfChildren = UICanvas.transform.childCount;
         for(int Index = 0; Index < NumberOfChildren; ++Index)
@@ -55,7 +130,7 @@ public class ADialogManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    private void ShowAllExceptForDialog()
+    private void ShowAllWidgetExceptForDialog()
     {
         int NumberOfChildren = UICanvas.transform.childCount;
         for (int Index = 0; Index < NumberOfChildren; ++Index)

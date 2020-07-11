@@ -733,7 +733,7 @@ RectTransform:
   m_Children:
   - {fileID: 315923939}
   m_Father: {fileID: 669798807}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -2101,8 +2101,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 289595244}
   - {fileID: 902603899}
+  - {fileID: 289595244}
   m_Father: {fileID: 184106630}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2767,7 +2767,7 @@ RectTransform:
   m_Children:
   - {fileID: 1673541477}
   m_Father: {fileID: 669798807}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -14170,8 +14170,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UICanvas: {fileID: 184106626}
   DialogObject: {fileID: 669798806}
+  Interactor: {fileID: 816596573}
   NameText: {fileID: 1673541478}
   DescriptonText: {fileID: 315923940}
+  TextDelay: 50
 --- !u!1001 &1972110891
 PrefabInstance:
   m_ObjectHideFlags: 0
