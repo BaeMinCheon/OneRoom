@@ -1429,7 +1429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0, g: 0, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1530,8 +1530,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DialogEvent:
     Name: Self Introduction
-    IndexFrom: 0
-    IndexTo: 3
+    IndexBegin: 0
+    IndexEnd: 4
     Dialogs: []
 --- !u!1001 &518034790
 PrefabInstance:
@@ -14173,7 +14173,7 @@ MonoBehaviour:
   Interactor: {fileID: 816596573}
   NameText: {fileID: 1673541478}
   DescriptonText: {fileID: 315923940}
-  TextDelay: 50
+  TextDelay: 25
 --- !u!1001 &1972110891
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
-ID,CharacterName,Dialogue
-1,Bong Ran,안녕` 내 이름은 봉란이야
-,,너의 이름은 뭐야?
-2,Player,반가워 봉란` 내 이름은
-,,Player 야
-3,Bong Ran,그렇구나
-,,알겠어
+ID,CharacterName,Dialogue,Comment
+0,Bong Ran,안녕` 내 이름은 <color=#0000FF>봉란</color>이야,
+,,너의 이름은 뭐야?,
+1,Player,반가워 봉란` 내 이름은 \n<color=#0000FF>Player</color> 야,
+2,Bong Ran,그렇구나,
+,,알겠어,
+3,,(봉란이가 무뚝뚝하게 말했다),

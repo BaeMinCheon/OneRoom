@@ -19,6 +19,6 @@ public class AInteractionEvent : MonoBehaviour
 
     private void Start()
     {
-        DialogEvent.Dialogs = ADatabaseManager.Instance.GetDialogs(DialogEvent.IndexFrom, DialogEvent.IndexTo);
+        DialogEvent.Dialogs = ADatabaseManager.Instance.GetDialogs(DialogEvent.IndexBegin, DialogEvent.IndexEnd);
     }
 }

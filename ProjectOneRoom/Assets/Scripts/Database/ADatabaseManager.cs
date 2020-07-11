@@ -11,10 +11,10 @@ public class ADatabaseManager : MonoBehaviour
     private string DialogFilename = "";
     private Dictionary<int, ADialog> DialogMap = new Dictionary<int, ADialog>();
 
-    public ADialog[] GetDialogs(int From, int To)
+    public ADialog[] GetDialogs(int Begin, int End)
     {
         List<ADialog> ReturnValue = new List<ADialog>();
-        for(int Index = From; Index < To; ++Index)
+        for(int Index = Begin; Index < End; ++Index)
         {
             ReturnValue.Add(DialogMap[Index]);
         }

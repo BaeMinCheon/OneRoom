@@ -15,7 +15,7 @@ public class ADialog
 public class ADialogEvent
 {
     public string Name;
-    public int IndexFrom;
-    public int IndexTo;
+    public int IndexBegin;
+    public int IndexEnd;
     public ADialog[] Dialogs;
 }

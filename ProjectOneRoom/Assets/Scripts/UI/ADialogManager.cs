@@ -52,7 +52,7 @@ public class ADialogManager : MonoBehaviour
     {
         AInteractable Interactable = Interactor.GetLastTargetOfRaycast();
         DialogEvent = Interactable.GetComponent<AInteractionEvent>().GetDialogEvent();
-        DialogIndex = DialogEvent.IndexFrom;
+        DialogIndex = DialogEvent.IndexBegin;
         DescriptionIndex = 0;
         UpdateText();
     }
@@ -116,7 +116,7 @@ public class ADialogManager : MonoBehaviour
 
     private bool IsDialogEnd()
     {
-        return DialogIndex >= DialogEvent.IndexTo;
+        return DialogIndex >= DialogEvent.IndexEnd;
     }
 
     private void HideAllWidgetExceptForDialog()

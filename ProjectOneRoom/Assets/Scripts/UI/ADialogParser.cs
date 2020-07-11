@@ -44,6 +44,7 @@ public class ADialogParser : MonoBehaviour
     private string GetPreprocessedString(string Input)
     {
         string ReturnValue = Input.Replace('`', ',');
+        ReturnValue = ReturnValue.Replace("\\n", "\n");
         return ReturnValue;
     }
 }
