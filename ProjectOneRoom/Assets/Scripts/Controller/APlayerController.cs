@@ -14,6 +14,36 @@ public class APlayerController : MonoBehaviour
     private float CameraMoveSpeed = float.NaN;
     [SerializeField]
     private Vector2 CameraMaxOffset = Vector2.zero;
+    private TransformProperty PreviousCameraTransform = null;
+
+    private class TransformProperty
+    {
+        public Vector3 Position;
+        public Quaternion Rotation;
+        public Vector3 Scale;
+    }
+
+    public void MoveCameraFrontOf(Transform Target)
+    {
+        if(Target != null)
+        {
+            if(PreviousCameraTransform == null)
+            {
+                PreviousCameraTransform = new TransformProperty();
+                SetPropertyWithTransform(CameraTransform, PreviousCameraTransform);
+            }
+            MoveCameraTransform(GetFrontOfTransform(Target));
+        }
+        else if(PreviousCameraTransform != null)
+        {
+            SetTransformWithProperty(CameraTransform, PreviousCameraTransform);
+            PreviousCameraTransform = null;
+        }
+        else
+        {
+            // do nothing
+        }
+    }
 
     private void Update()
     {
@@ -82,5 +112,35 @@ public class APlayerController : MonoBehaviour
             DirectionY += 1;
         }
         return new Vector2(DirectionX, DirectionY);
+    }
+
+    private Transform GetFrontOfTransform(Transform Target)
+    {
+        Transform ReturnValue = CameraTransform;
+        Vector3 TargetPosition = Target.position;
+        Vector3 FrontPosition = TargetPosition + Target.forward;
+        Vector3 Direction = (TargetPosition - FrontPosition).normalized;
+        ReturnValue.position = FrontPosition;
+        ReturnValue.rotation = Quaternion.LookRotation(Direction);
+        return ReturnValue;
+    }
+
+    private void MoveCameraTransform(Transform To)
+    {
+        CameraTransform = To;
+    }
+
+    private void SetPropertyWithTransform(Transform Target, TransformProperty Property)
+    {
+        Property.Position = Target.position;
+        Property.Rotation = Target.rotation;
+        Property.Scale = Target.localScale;
+    }
+
+    private void SetTransformWithProperty(Transform Target, TransformProperty Property)
+    {
+        Target.position = Property.Position;
+        Target.rotation = Property.Rotation;
+        Target.localScale = Property.Scale;
     }
 }

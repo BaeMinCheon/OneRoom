@@ -55,6 +55,7 @@ public class ADialogManager : MonoBehaviour
         DialogIndex = DialogEvent.IndexBegin;
         DescriptionIndex = 0;
         UpdateText();
+        UpdateCamera();
     }
 
     private void UpdateDialog()
@@ -73,6 +74,7 @@ public class ADialogManager : MonoBehaviour
         else
         {
             UpdateText();
+            UpdateCamera();
         }
     }
 
@@ -80,6 +82,12 @@ public class ADialogManager : MonoBehaviour
     {
         NameText.text = GetDialogName();
         UpdateDescriptionWithTextDelay();
+    }
+
+    private void UpdateCamera()
+    {
+        APlayerController PlayerController = Interactor.GetComponent<APlayerController>();
+        PlayerController.MoveCameraFrontOf(DialogEvent.CameraTargets[DialogIndex]);
     }
 
     private string GetDialogName()

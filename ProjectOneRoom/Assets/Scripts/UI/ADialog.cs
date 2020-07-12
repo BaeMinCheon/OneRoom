@@ -5,9 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class ADialog
 {
-    [Tooltip("name of character")]
+    [HideInInspector]
     public string Name;
-    [Tooltip("contents of dialog")]
+    [HideInInspector]
     public string[] Contexts;
 }
 
@@ -18,4 +18,5 @@ public class ADialogEvent
     public int IndexBegin;
     public int IndexEnd;
     public ADialog[] Dialogs;
+    public Transform[] CameraTargets;
 }
