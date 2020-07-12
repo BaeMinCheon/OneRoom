@@ -7,14 +7,13 @@ public class AInteractor : MonoBehaviour
 {
     [SerializeField]
     private AObjectManager ObjectManager = null;
-
     private bool IsReadyToInteract = false;
     private RaycastHit LastHitResult = new RaycastHit();
-    private AInteractable LastTarget = null;
+    private AInteractable LastTargetOfRaycast = null;
 
     public AInteractable GetLastTargetOfRaycast()
     {
-        return LastTarget;
+        return LastTargetOfRaycast;
     }
 
     public Vector3 GetLastTargetPositionOfRaycast()
@@ -39,7 +38,7 @@ public class AInteractor : MonoBehaviour
                 AInteractable Interactable = LastHitResult.transform.GetComponent<AInteractable>();
                 if (Interactable != null)
                 {
-                    LastTarget = Interactable;
+                    LastTargetOfRaycast = Interactable;
                     BeReadyToInteract();
                     IsFailedToFindInteractable = false;
                 }

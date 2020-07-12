@@ -97,7 +97,10 @@ public class AObjectManager : MonoBehaviour
         GameObject Particle = ParticleDictionary[Name];
         Particle.SetActive(true);
         ParticleSystem ParticleComponent = Particle.GetComponent<ParticleSystem>();
-        ParticleComponent.Play();
+        if (ParticleComponent.isPlaying == false)
+        {
+            ParticleComponent.Play();
+        }
     }
 
     public void SetLastInteractorWithRaycast(AInteractor NewInteractor)

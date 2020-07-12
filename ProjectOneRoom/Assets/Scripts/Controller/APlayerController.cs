@@ -26,21 +26,26 @@ public class APlayerController : MonoBehaviour
         public Vector3 Scale;
     }
 
+    public void CaptureCameraTransformProperty()
+    {
+        PreviousCameraTransformProperty = new TransformProperty();
+        SetPropertyWithTransform(CameraTransform, PreviousCameraTransformProperty);
+    }
+
+    public void ReleaseCameraTransformProperty()
+    {
+        PreviousCameraTransformProperty = null;
+    }
+
     public void MoveCameraFrontOf(Transform Target)
     {
         if(Target != null)
         {
-            if(PreviousCameraTransformProperty == null)
-            {
-                PreviousCameraTransformProperty = new TransformProperty();
-                SetPropertyWithTransform(CameraTransform, PreviousCameraTransformProperty);
-            }
             LerpTransformWithProperty(CameraTransform, GetTransformPropertyFrontOf(Target));
         }
         else if(PreviousCameraTransformProperty != null)
         {
             LerpTransformWithProperty(CameraTransform, PreviousCameraTransformProperty);
-            PreviousCameraTransformProperty = null;
         }
         else
         {

@@ -23,6 +23,7 @@ public class ADialogManager : MonoBehaviour
     private ADialogEvent DialogEvent = null;
     private int DialogIndex = 0;
     private int DescriptionIndex = 0;
+    private APlayerController PlayerController = null;
 
     public void ShowDialog()
     {
@@ -35,6 +36,11 @@ public class ADialogManager : MonoBehaviour
     {
         IsDialogShowing = false;
         ShowAllWidgetExceptForDialog();
+    }
+
+    private void Start()
+    {
+        PlayerController = Interactor.GetComponent<APlayerController>();
     }
 
     private void Update()
@@ -54,6 +60,7 @@ public class ADialogManager : MonoBehaviour
         DialogEvent = Interactable.GetComponent<AInteractionEvent>().GetDialogEvent();
         DialogIndex = DialogEvent.IndexBegin;
         DescriptionIndex = 0;
+        PlayerController.CaptureCameraTransformProperty();
         UpdateText();
         UpdateCamera();
     }
@@ -87,10 +94,10 @@ public class ADialogManager : MonoBehaviour
 
     private void UpdateCamera()
     {
-        APlayerController PlayerController = Interactor.GetComponent<APlayerController>();
         if (IsDialogEnd())
         {
             PlayerController.MoveCameraFrontOf(null);
+            PlayerController.ReleaseCameraTransformProperty();
         }
         else
         {

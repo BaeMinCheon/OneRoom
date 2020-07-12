@@ -1545,9 +1545,9 @@ MonoBehaviour:
       Contexts: []
     CameraTargets:
     - {fileID: 476015006}
-    - {fileID: 730818606}
+    - {fileID: 0}
     - {fileID: 2071519352}
-    - {fileID: 476015006}
+    - {fileID: 730818606}
 --- !u!1001 &518034790
 PrefabInstance:
   m_ObjectHideFlags: 0
