@@ -70,6 +70,7 @@ public class ADialogManager : MonoBehaviour
         if (IsDialogEnd())
         {
             HideDialog();
+            UpdateCamera();
         }
         else
         {
@@ -87,7 +88,14 @@ public class ADialogManager : MonoBehaviour
     private void UpdateCamera()
     {
         APlayerController PlayerController = Interactor.GetComponent<APlayerController>();
-        PlayerController.MoveCameraFrontOf(DialogEvent.CameraTargets[DialogIndex]);
+        if (IsDialogEnd())
+        {
+            PlayerController.MoveCameraFrontOf(null);
+        }
+        else
+        {
+            PlayerController.MoveCameraFrontOf(DialogEvent.CameraTargets[DialogIndex]);
+        }
     }
 
     private string GetDialogName()

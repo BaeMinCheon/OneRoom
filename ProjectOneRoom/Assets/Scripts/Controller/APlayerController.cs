@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class APlayerController : MonoBehaviour
@@ -14,7 +16,8 @@ public class APlayerController : MonoBehaviour
     private float CameraMoveSpeed = float.NaN;
     [SerializeField]
     private Vector2 CameraMaxOffset = Vector2.zero;
-    private TransformProperty PreviousCameraTransform = null;
+    private TransformProperty PreviousCameraTransformProperty = null;
+    private int CurrentCameraTargettingID = 0;
 
     private class TransformProperty
     {
@@ -27,17 +30,17 @@ public class APlayerController : MonoBehaviour
     {
         if(Target != null)
         {
-            if(PreviousCameraTransform == null)
+            if(PreviousCameraTransformProperty == null)
             {
-                PreviousCameraTransform = new TransformProperty();
-                SetPropertyWithTransform(CameraTransform, PreviousCameraTransform);
+                PreviousCameraTransformProperty = new TransformProperty();
+                SetPropertyWithTransform(CameraTransform, PreviousCameraTransformProperty);
             }
-            MoveCameraTransform(GetFrontOfTransform(Target));
+            LerpTransformWithProperty(CameraTransform, GetTransformPropertyFrontOf(Target));
         }
-        else if(PreviousCameraTransform != null)
+        else if(PreviousCameraTransformProperty != null)
         {
-            SetTransformWithProperty(CameraTransform, PreviousCameraTransform);
-            PreviousCameraTransform = null;
+            LerpTransformWithProperty(CameraTransform, PreviousCameraTransformProperty);
+            PreviousCameraTransformProperty = null;
         }
         else
         {
@@ -114,20 +117,34 @@ public class APlayerController : MonoBehaviour
         return new Vector2(DirectionX, DirectionY);
     }
 
-    private Transform GetFrontOfTransform(Transform Target)
+    private TransformProperty GetTransformPropertyFrontOf(Transform Target)
     {
-        Transform ReturnValue = CameraTransform;
+        TransformProperty ReturnValue = new TransformProperty();
         Vector3 TargetPosition = Target.position;
         Vector3 FrontPosition = TargetPosition + Target.forward;
         Vector3 Direction = (TargetPosition - FrontPosition).normalized;
-        ReturnValue.position = FrontPosition;
-        ReturnValue.rotation = Quaternion.LookRotation(Direction);
+        ReturnValue.Position = FrontPosition;
+        ReturnValue.Rotation = Quaternion.LookRotation(Direction);
         return ReturnValue;
     }
 
-    private void MoveCameraTransform(Transform To)
+    private async void LerpTransformWithProperty(Transform Target, TransformProperty Property)
     {
-        CameraTransform = To;
+        CurrentCameraTargettingID += 1;
+        int ID = CurrentCameraTargettingID;
+        while(Target.position != Property.Position)
+        {
+            if(ID == CurrentCameraTargettingID)
+            {
+                Target.position = Vector3.MoveTowards(Target.position, Property.Position, 0.1f);
+                Target.rotation = Quaternion.Lerp(Target.rotation, Property.Rotation, 0.1f);
+                await Task.Delay((int)(Time.deltaTime * 1000));
+            }
+            else
+            {
+                break;
+            }
+        }
     }
 
     private void SetPropertyWithTransform(Transform Target, TransformProperty Property)
