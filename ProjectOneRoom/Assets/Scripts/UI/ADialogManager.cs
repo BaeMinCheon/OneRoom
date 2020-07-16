@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class ADialogManager : MonoBehaviour
 {
     [SerializeField]
+    private AObjectManager ObjectManager = null;
+    [SerializeField]
     private GameObject UICanvas = null;
     [SerializeField]
     private GameObject DialogObject = null;
@@ -63,6 +65,7 @@ public class ADialogManager : MonoBehaviour
         PlayerController.CaptureCameraTransformProperty();
         UpdateText();
         UpdateCamera();
+        UpdateNPC(false);
     }
 
     private void UpdateDialog()
@@ -78,11 +81,13 @@ public class ADialogManager : MonoBehaviour
         {
             HideDialog();
             UpdateCamera();
+            UpdateNPC(true);
         }
         else
         {
             UpdateText();
             UpdateCamera();
+            UpdateNPC(false);
         }
     }
 
@@ -103,6 +108,21 @@ public class ADialogManager : MonoBehaviour
         {
             PlayerController.MoveCameraFrontOf(DialogEvent.CameraTargets[DialogIndex]);
         }
+    }
+
+    private void UpdateNPC(bool IsReset)
+    {
+        string CharacterName = string.Empty;
+        if (IsDialogEnd())
+        {
+            CharacterName = DialogEvent.Dialogs[DialogIndex - 1].Name;
+        }
+        else
+        {
+            CharacterName = DialogEvent.Dialogs[DialogIndex].Name;
+        }
+        int ID = IsReset ? 0 : DialogEvent.Dialogs[DialogIndex].SpriteIDs[DescriptionIndex];
+        ObjectManager.UpdateNPC(CharacterName, ID);
     }
 
     private string GetDialogName()

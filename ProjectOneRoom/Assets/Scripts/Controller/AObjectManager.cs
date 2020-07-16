@@ -19,6 +19,8 @@ public class AObjectManager : MonoBehaviour
     private StringGameobjectDictionary ParticleDictionary = null;
     [SerializeField]
     private StringGameobjectDictionary ToolTipDictionary = null;
+    [SerializeField]
+    private ANPCManager NPCManager = null;
 
     private AInteractor LastInteractorWithRaycast;
 
@@ -101,6 +103,11 @@ public class AObjectManager : MonoBehaviour
         {
             ParticleComponent.Play();
         }
+    }
+
+    public void UpdateNPC(string TargetName, int ID)
+    {
+        NPCManager.UpdateNPC(TargetName, ID);
     }
 
     public void SetLastInteractorWithRaycast(AInteractor NewInteractor)

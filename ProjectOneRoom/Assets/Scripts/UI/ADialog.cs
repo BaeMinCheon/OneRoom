@@ -9,6 +9,8 @@ public class ADialog
     public string Name;
     [HideInInspector]
     public string[] Contexts;
+    [HideInInspector]
+    public int[] SpriteIDs;
 }
 
 [System.Serializable]

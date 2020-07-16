@@ -1211,6 +1211,49 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 416982560}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &453666475
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 453666476}
+  - component: {fileID: 453666477}
+  m_Layer: 0
+  m_Name: NPCManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &453666476
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453666475}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1668559379}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &453666477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453666475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16a344982dcb0b94f8ef6c22c393dacd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &456913747
 GameObject:
   m_ObjectHideFlags: 0
@@ -1514,10 +1557,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 476015005}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bed4732755f9c1b49aa01387bb33c2fd, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b1f9f2ef41e9214b91180e416fabe16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NameText: Bong Ran
+  NameText: BongRan
 --- !u!114 &476015009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1537,12 +1580,16 @@ MonoBehaviour:
     Dialogs:
     - Name: 
       Contexts: []
+      SpriteIDs: 
     - Name: 
       Contexts: []
+      SpriteIDs: 
     - Name: 
       Contexts: []
+      SpriteIDs: 
     - Name: 
       Contexts: []
+      SpriteIDs: 
     CameraTargets:
     - {fileID: 476015006}
     - {fileID: 0}
@@ -2400,12 +2447,16 @@ MonoBehaviour:
     Dialogs:
     - Name: 
       Contexts: []
+      SpriteIDs: 
     - Name: 
       Contexts: []
+      SpriteIDs: 
     - Name: 
       Contexts: []
+      SpriteIDs: 
     - Name: 
       Contexts: []
+      SpriteIDs: 
     CameraTargets: []
 --- !u!114 &730818608
 MonoBehaviour:
@@ -2416,10 +2467,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 730818605}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bed4732755f9c1b49aa01387bb33c2fd, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b1f9f2ef41e9214b91180e416fabe16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NameText: Bong Ran
+  NameText: BongRan
 --- !u!65 &730818609
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2635,6 +2686,7 @@ MonoBehaviour:
     _values:
     - {fileID: 2053842905}
     - {fileID: 1089570961}
+  NPCManager: {fileID: 453666477}
 --- !u!4 &780062483
 Transform:
   m_ObjectHideFlags: 0
@@ -13831,6 +13883,7 @@ Transform:
   - {fileID: 780062483}
   - {fileID: 1932654895}
   - {fileID: 1904937763}
+  - {fileID: 453666476}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14427,6 +14480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d6f584c04490c040a5ea4e8e435c79d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObjectManager: {fileID: 780062482}
   UICanvas: {fileID: 184106626}
   DialogObject: {fileID: 669798806}
   Interactor: {fileID: 816596573}
@@ -14904,8 +14958,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2071519352}
   - component: {fileID: 2071519355}
-  - component: {fileID: 2071519354}
   - component: {fileID: 2071519353}
+  - component: {fileID: 2071519354}
   m_Layer: 0
   m_Name: NPC_3
   m_TagString: Untagged
@@ -14947,12 +15001,16 @@ MonoBehaviour:
     Dialogs:
     - Name: 
       Contexts: []
+      SpriteIDs: 
     - Name: 
       Contexts: []
+      SpriteIDs: 
     - Name: 
       Contexts: []
+      SpriteIDs: 
     - Name: 
       Contexts: []
+      SpriteIDs: 
     CameraTargets: []
 --- !u!114 &2071519354
 MonoBehaviour:
@@ -14963,10 +15021,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2071519351}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bed4732755f9c1b49aa01387bb33c2fd, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b1f9f2ef41e9214b91180e416fabe16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NameText: Bong Ran
+  NameText: BongRan
 --- !u!65 &2071519355
 BoxCollider:
   m_ObjectHideFlags: 0

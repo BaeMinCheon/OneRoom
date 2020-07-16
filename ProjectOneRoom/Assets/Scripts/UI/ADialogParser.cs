@@ -16,10 +16,12 @@ public class ADialogParser : MonoBehaviour
         {
             ADialog Dialog = new ADialog();
             List<string> Contexts = new List<string>();
+            List<int> IDs = new List<int>();
             string Line = Lines[Index];
             string[] Columns = Line.Split(ColumnSeparators);
             Dialog.Name = Columns[1];
             Contexts.Add(GetPreprocessedString(Columns[2]));
+            IDs.Add(GetPreprocessedID(Columns[3]));
             Index += 1;
             while (Index < Lines.Length)
             {
@@ -28,6 +30,7 @@ public class ADialogParser : MonoBehaviour
                 if (Columns[0].Length == 0)
                 {
                     Contexts.Add(GetPreprocessedString(Columns[2]));
+                    IDs.Add(GetPreprocessedID(Columns[3]));
                     Index += 1;
                 }
                 else
@@ -36,6 +39,7 @@ public class ADialogParser : MonoBehaviour
                 }
             }
             Dialog.Contexts = Contexts.ToArray();
+            Dialog.SpriteIDs = IDs.ToArray();
             ReturnValue.Add(Dialog);
         }
         return ReturnValue.ToArray();
@@ -45,6 +49,22 @@ public class ADialogParser : MonoBehaviour
     {
         string ReturnValue = Input.Replace('`', ',');
         ReturnValue = ReturnValue.Replace("\\n", "\n");
+        return ReturnValue;
+    }
+
+    private int GetPreprocessedID(string Input)
+    {
+        int Result = -1;
+        int.TryParse(Input, out Result);
+        int ReturnValue = 0;
+        if (Result <= 0)
+        {
+            ReturnValue = 0;
+        }
+        else
+        {
+            ReturnValue = Result;
+        }
         return ReturnValue;
     }
 }
