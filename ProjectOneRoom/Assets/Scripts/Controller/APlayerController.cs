@@ -143,7 +143,7 @@ public class APlayerController : MonoBehaviour
             {
                 Target.position = Vector3.MoveTowards(Target.position, Property.Position, 0.1f);
                 Target.rotation = Quaternion.Lerp(Target.rotation, Property.Rotation, 0.1f);
-                await Task.Delay((int)(Time.deltaTime * 1000));
+                await Task.Delay((int)(Time.deltaTime * 1000.0f));
             }
             else
             {
